@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retrospect — Photography in San Antonio, TX</title>
+<meta name="description" content="Retrospect is a San Antonio, TX photography studio shooting product, business, event, show, and car photography.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Zilla+Slab:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* NAVILLE: paid, all-caps display font (Letterhend Studio).
+     Note: the format() keyword for a .otf file is 'opentype', not 'otf' —
+     'otf' isn't a value browsers recognize, so it's corrected below. */
+  @font-face {
+    font-family: 'Naville';
+    src: url('fonts/Navill_ Bold.otf') format('opentype');
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  :root{
+    --cream: #dbccc1;
+    --rust: #b05f1e;
+    --charcoal: #2d3026;
+    --gold: #b7a16f;
+    --forest: #13312e;
+    --sage: #4e634f;
+    --font-display: 'Naville', 'Jost', 'Century Gothic', sans-serif;
+    --font-body: 'Zilla Slab', Georgia, serif;
+  }
+
+  *{ box-sizing: border-box; margin: 0; padding: 0; }
+
+  body{
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; }
+
+  h2{
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+  }
+
+  header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 6vw;
+    border-bottom: 1px solid rgba(45,48,38,0.15);
+  }
+
+  .logo{
+    display: block;
+    height: auto;
+    width: auto;
+    max-height: 32px;
+    max-width: 160px;
+  }
+
+  .tabs{ display: flex; gap: 2rem; }
+
+  .tab-btn{
+    background: none;
+    border: none;
+    padding: 0.4rem 0;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+  }
+
+  .tab-icon{
+    display: block;
+    width: 96px;
+    height: 26px;
+    background-color: var(--charcoal);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    /* Force alpha-channel masking (not luminance) so the opaque black
+       shape is the visible part, not the cut-out part. */
+    -webkit-mask-mode: alpha;
+    mask-mode: alpha;
+    transition: background-color 0.2s ease;
+  }
+  .tab-btn:hover .tab-icon{ background-color: var(--rust); }
+  .tab-btn.active{ border-color: var(--rust); }
+  .tab-btn.active .tab-icon{ background-color: var(--rust); }
+
+  main{ max-width: 1000px; margin: 0 auto; padding: 3.5rem 6vw; text-align: center; }
+
+  .tab-panel{ display: none; }
+  .tab-panel.active{ display: block; }
+
+  #retrospective p{ margin: 0 auto; }
+  .contact-links{ align-items: center; }
+
+  @media (max-width: 600px){
+    header{ flex-direction: column; gap: 1rem; }
+    .tabs{ gap: 1.4rem; }
+    main{ padding: 2.5rem 6vw; }
+  }
+
+  /* Gallery — masonry columns, so each photo keeps its own aspect ratio
+     (portrait, landscape, or square) instead of being forced into a square. */
+  .grid{
+    column-count: 2;
+    column-gap: 0.6rem;
+  }
+  @media (min-width: 700px){ .grid{ column-count: 3; } }
+  @media (min-width: 1000px){ .grid{ column-count: 4; } }
+
+  .tile{
+    display: block;
+    width: 100%;
+    height: auto;
+    break-inside: avoid;
+    margin-bottom: 0.6rem;
+    border: 1px solid var(--charcoal);
+  }
+
+  /* Retrospective (about) */
+  #retrospective p{
+    max-width: 60ch;
+    font-size: 1.05rem;
+    color: rgba(45,48,38,0.85);
+  }
+
+  /* Contact */
+  .contact-links{ display: flex; flex-direction: column; gap: 0.7rem; }
+  .contact-links a{
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    text-decoration: none;
+    width: fit-content;
+    border-bottom: 1px solid transparent;
+  }
+  .contact-links a:hover{ border-color: var(--rust); }
+
+  footer{
+    padding: 1.5rem 6vw;
+    font-size: 0.8rem;
+    color: var(--sage);
+    text-align: center;
+  }
+
+  :focus-visible{ outline: 2px solid var(--rust); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="images/logo.png" alt="Retrospect logo" class="logo">
+  <nav class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="gallery" role="tab" aria-selected="true" aria-label="Gallery">
+      <span class="tab-icon" style="mask-image:url('images/gallery.png'); -webkit-mask-image:url('images/gallery.png');"></span>
+    </button>
+    <button class="tab-btn" data-tab="retrospective" role="tab" aria-selected="false" aria-label="Retrospective">
+      <span class="tab-icon" style="mask-image:url('images/restrospective.png'); -webkit-mask-image:url('images/restrospective.png');"></span>
+    </button>
+    <button class="tab-btn" data-tab="contact" role="tab" aria-selected="false" aria-label="Contact">
+      <span class="tab-icon" style="mask-image:url('images/contact.png'); -webkit-mask-image:url('images/contact.png');"></span>
+    </button>
+  </nav>
+</header>
+
+<main>
+  <section id="gallery" class="tab-panel active">
+    <!-- Each image's natural aspect ratio sets its own height in the masonry columns. -->
+    <div class="grid">
+      <img class="tile" src="images/one.jpg" alt="Retrospect gallery photo 1">
+      <img class="tile" src="images/two.jpg" alt="Retrospect gallery photo 2">
+      <img class="tile" src="images/three.jpg" alt="Retrospect gallery photo 3">
+      <img class="tile" src="images/four.jpg" alt="Retrospect gallery photo 4">
+      <img class="tile" src="images/five.jpg" alt="Retrospect gallery photo 5">
+      <img class="tile" src="images/six.jpg" alt="Retrospect gallery photo 6">
+      <img class="tile" src="images/seven.jpg" alt="Retrospect gallery photo 7">
+      <img class="tile" src="images/eight.jpg" alt="Retrospect gallery photo 8">
+      <img class="tile" src="images/nine.jpg" alt="Retrospect gallery photo 9">
+      <img class="tile" src="images/ten.jpg" alt="Retrospect gallery photo 10">
+      <img class="tile" src="images/eleven.jpg" alt="Retrospect gallery photo 11">
+      <img class="tile" src="images/twelve.jpg" alt="Retrospect gallery photo 12">
+    </div>
+  </section>
+
+  <section id="retrospective" class="tab-panel">
+    <h2>Retrospective</h2>
+    <p> Product, business, event, and automotive photographer local to San Antonio Texas. When moments deserve to be captured, Retrospect keeps your photography needs in focus. Contact us anytime and we can start collaborating on bringing your vision to life.</p>
+  </section>
+
+  <section id="contact" class="tab-panel">
+    <h2>Contact</h2>
+    <div class="contact-links">
+      <a href="mailto:michael.al.velasquez@gmail.com">michael.al.velasquez@gmail.com</a>
+      <a href="tel:+12105550123">(210) 555-0123</a>
+    </div>
+  </section>
+</main>
+
+<footer>Retrospect &middot; San Antonio, TX</footer>
+
+<script>
+  document.querySelectorAll('.tab-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.tab-btn').forEach(function(b){
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      document.querySelectorAll('.tab-panel').forEach(function(p){
+        p.classList.remove('active');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
